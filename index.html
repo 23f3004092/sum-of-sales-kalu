@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Summary demo123</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Sales Summary</h1>
+        <div id="total-sales" class="alert alert-success fs-3">Loading sales...</div>
+        <p>The total sales figure above is calculated from the attached <code>data.csv</code> file.</p>
+        <p>Here is the content of <code>data.csv</code>:</p>
+        <pre class="bg-light p-3 rounded">product,region,sales
+Toothpast,North,200
+Sampoo,South,300
+Milk,East,150</pre>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const csvData = `product,region,sales
+Toothpast,North,200
+Sampoo,South,300
+Milk,East,150`;
+
+            const lines = csvData.split('\n');
+            let totalSales = 0;
+
+            for (let i = 1; i < lines.length; i++) {
+                const cells = lines[i].split(',');
+                if (cells.length > 2) {
+                    const sales = parseFloat(cells[2]);
+                    if (!isNaN(sales)) {
+                        totalSales += sales;
+                    }
+                }
+            }
+
+            document.querySelector('#total-sales').textContent = totalSales.toFixed(2);
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
